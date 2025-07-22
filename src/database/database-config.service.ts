@@ -4,17 +4,17 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 @Injectable()
 export class DatabaseConfigService implements TypeOrmOptionsFactory {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private configService: ConfigService) {}
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
-      type: this.configService.get<'postgres'>('DATABASE_TYPE'),
-      host: this.configService.get<string>('DATABASE_HOST'),
-      port: this.configService.get<number>('DATABASE_PORT'),
-      username: this.configService.get('DATABASE_USERNAME'),
-      password: this.configService.get<string>('DATABASE_PASSWORD'),
-      database: this.configService.get<string>('DATABASE_NAME'),
+      type: this.configService.get('database.type'),
+      host: this.configService.get('database.host' ),
+      port: this.configService.get('database.port'),
+      username: this.configService.get('database.username'),
+      password: this.configService.get('database.password'),
+      database: this.configService.get('database.name'),
+      synchronize: this.configService.get('database.synchronize'),
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-      synchronize: this.configService.get('DATABASE_SYNCHRONIZE') === 'true',
-    };
+    } as TypeOrmModuleOptions;
   }
 }
