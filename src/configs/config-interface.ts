@@ -7,3 +7,10 @@ export interface IDatabaseConfig {
   name: string;
   synchronize: boolean;
 }
+
+
+export interface IRedisConfig{
+  host: string;
+  port: number;
+  password: string;
+}
