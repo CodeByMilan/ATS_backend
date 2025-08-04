@@ -65,6 +65,9 @@ export class UserEntity extends DatabaseBaseEntity implements IUser {
   @ApiProperty()
   @Column({ type: 'timestamp', nullable: true, name: 'email_verified_at' })
   emailVerifiedAt?: Date | null;
+  @ApiProperty()
+  @Column({ type: 'timestamp', nullable: true, name: 'password_set_at' })
+  passwordSetAt?: Date | null;
 
   @ApiProperty()
   @Column({ type: 'timestamp', nullable: true, name: 'phone_verified_at' })
