@@ -2,6 +2,8 @@ import { ConfigService } from '@nestjs/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ENUM_APP_ENVIRONMENT } from './common/constant/app.constant';
+import { AdminRouterModule } from './module/router/routes/adminRouter.module';
+import { UserRouterModule } from './module/router/routes/userRouter.module';
 
 //note the type of the app should be same as the type of the app in the main.ts file
 export default async function swaggerInitFunction(app: NestExpressApplication) {
@@ -28,6 +30,7 @@ export default async function swaggerInitFunction(app: NestExpressApplication) {
       adminDocumentBuild,
       {
         deepScanRoutes: true,
+        include: [AdminRouterModule],
       },
     );
 
@@ -54,6 +57,7 @@ export default async function swaggerInitFunction(app: NestExpressApplication) {
 
     const userDocument = SwaggerModule.createDocument(app, userDocumentBuild, {
       deepScanRoutes: true,
+      include: [UserRouterModule],
     });
 
     SwaggerModule.setup('ats/user-docs', app, userDocument, {
