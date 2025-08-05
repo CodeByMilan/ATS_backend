@@ -9,15 +9,13 @@ import { REDIS_CLIENT_CONNECTION } from './redis.constant';
     {
       provide: REDIS_CLIENT_CONNECTION,
       inject: [ConfigService],
-      useFactory: async (
-        configService: ConfigService,
-      ) => {
+      useFactory: async (configService: ConfigService) => {
         let isConnected = false;
         const client = createClient({
-          password: configService.get<string>('helper.redis.password'),
+          password: configService.get<string>('redis.password'),
           socket: {
-            host: configService.get<string>('helper.redis.host'),
-            port: Number(configService.get<number>('helper.redis.port')),
+            host: configService.get<string>('redis.host'),
+            port: Number(configService.get<number>('redis.port')),
             reconnectStrategy: (retries) => {
               if (retries > 50) {
                 throw new Error('Redis limit retry connection');

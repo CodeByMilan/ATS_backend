@@ -1,10 +1,12 @@
-import { faker } from '@faker-js/faker';
 import { ConfigService } from '@nestjs/config';
+import { faker } from '@faker-js/faker';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class HelperNumberService {
   private env: string | undefined;
   constructor(private readonly configService: ConfigService) {
-    this.env = this.configService.get(process.env.APP_ENV);
+    this.env = this.configService.get('app.app_env');
   }
 
   random(length: number): number {

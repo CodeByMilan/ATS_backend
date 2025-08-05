@@ -4,6 +4,8 @@ import configs from 'src/configs/index';
 import { DatabaseModule } from 'src/database/database.module';
 import * as Joi from 'joi';
 import { ENUM_APP_ENVIRONMENT } from './constant/app.constant';
+import { AuthenticationModule } from 'src/module/authentication/authentication.module';
+import { UserModule } from 'src/module/user/user.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -28,6 +30,8 @@ import { ENUM_APP_ENVIRONMENT } from './constant/app.constant';
       },
     }),
     DatabaseModule,
+    AuthenticationModule,
+    UserModule
   ],
 })
 export class CommonModule {}

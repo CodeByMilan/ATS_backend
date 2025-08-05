@@ -3,20 +3,21 @@ import {
   Controller,
   HttpException,
   HttpStatus,
-  Post
+  Post,
 } from '@nestjs/common';
 import { USER_TYPE } from 'src/module/user/interface/user.interface';
 import { RegisterDto } from '../dto/registerDto';
 import { VerifyOtpDto } from '../dto/verifyDto';
 import { AuthenticationUserService } from '../services/authentication.user.service';
-
-@Controller('authentication')
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('auth')
+@Controller('auth')
 export class AuthenticationUserController {
   constructor(
     private readonly authenticationUserService: AuthenticationUserService,
   ) {}
 
-  @Post()
+  @Post('register')
   async register(@Body() registerDto: RegisterDto) {
     const existingUser: boolean =
       await this.authenticationUserService.checkUserExistOrNot(
@@ -33,7 +34,8 @@ export class AuthenticationUserController {
   }
 
   async verifyOtp(@Body() data: VerifyOtpDto) {
-    const accessToken = await this.authenticationUserService.verifyUserOtp(data);
+    const accessToken =
+      await this.authenticationUserService.verifyUserOtp(data);
     return { data: accessToken };
   }
 }
